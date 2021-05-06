@@ -16,7 +16,7 @@
    - Liquidity pool tokens locked at launch (It's rug-proof)
    - Contract ownership renounced at launch (It's owned buy the community)
 
-   Let's get this coin to 10,000x and get Laika back into to space!
+   Let's get this coin to 10,000x and get Laika2 back into to space!
  */
 
 pragma solidity ^0.6.12;
@@ -717,8 +717,8 @@ contract LaikaCoin is Context, IERC20, Ownable {
     uint256 private _rTotal = (MAX - (MAX % _tTotal));
     uint256 private _tFeeTotal;
 
-    string private _name = "LaikaCoin 1";
-    string private _symbol = "LAIKA1";
+    string private _name = "Laika 2";
+    string private _symbol = "LAIKA2";
     uint8 private _decimals = 9;
 
     uint256 public _taxFee = 3;
@@ -753,7 +753,7 @@ contract LaikaCoin is Context, IERC20, Ownable {
     constructor () public {
         _rOwned[_msgSender()] = _rTotal;
 
-        IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0xD99D1c33F9fC3444f8101754aBC46c52416550D1);
+        IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F);
          // Create a uniswap pair for this new token
         uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory())
             .createPair(address(this), _uniswapV2Router.WETH());
