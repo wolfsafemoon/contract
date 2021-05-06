@@ -1,18 +1,22 @@
 /**
-   WolfSafeMoonToken
-   WolfSafeMoon, is the egyptian name of the god of death and the Underworld. In the Crypto space WolfSafeMoon comes to protect its holders and to overtake its biggest competitors #DOGE #SHIBA
+ *Submitted for verification at BscScan.com on 2021-04-16
+*/
 
-   Forked from #LAIKACOIN
+/**
+   LaikaCoin
+   Named after Laika, the first doge in space. https://en.wikipedia.org/wiki/Laika
+
+   Forked from #SAFEMOON
 
    Two token features:
    5% fee auto add to the liquidity pool to locked forever when selling
-   5% fee auto distribute to all holders (Lower overall penality for buying / selling should resolve cross exchange pricing issues SAFEMOON has)
+   3% fee auto distribute to all holders (Lower overall penality for buying / selling should resolve cross exchange pricing issues SAFEMOON has)
    50% burned at launch. With a strong burn and 5% LIQ fee, diamond hands will be rewarded.
 
-   - Liquidity pool tokens burned at launch (It's rug-proof)
+   - Liquidity pool tokens locked at launch (It's rug-proof)
    - Contract ownership renounced at launch (It's owned buy the community)
 
-   Let's get this coin to 10,000x and WolfSafeMoon will protect you and your beloved from the Underworld
+   Let's get this coin to 10,000x and get Laika back into to space!
  */
 
 pragma solidity ^0.6.12;
@@ -695,7 +699,7 @@ interface IUniswapV2Router02 is IUniswapV2Router01 {
 }
 
 
-contract WolfSafeMoon is Context, IERC20, Ownable {
+contract LaikaCoin is Context, IERC20, Ownable {
     using SafeMath for uint256;
     using Address for address;
 
@@ -709,15 +713,15 @@ contract WolfSafeMoon is Context, IERC20, Ownable {
     address[] private _excluded;
 
     uint256 private constant MAX = ~uint256(0);
-    uint256 private _tTotal = 1000000000000 * 10**6 * 10**9;
+    uint256 private _tTotal = 100000000000 * 10**6 * 10**9;
     uint256 private _rTotal = (MAX - (MAX % _tTotal));
     uint256 private _tFeeTotal;
 
-    string private _name = "WolfSafeMoon";
-    string private _symbol = "WSM";
+    string private _name = "LaikaCoin 1";
+    string private _symbol = "LAIKA1";
     uint8 private _decimals = 9;
 
-    uint256 public _taxFee = 5;
+    uint256 public _taxFee = 3;
     uint256 private _previousTaxFee = _taxFee;
 
     uint256 public _liquidityFee = 5;
