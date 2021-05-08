@@ -1,22 +1,11 @@
 /**
- *Submitted for verification at BscScan.com on 2021-04-16
+ *Submitted for verification at BscScan.com on 2021-05-05
 */
 
 /**
-   LaikaCoin
-   Named after Laika, the first doge in space. https://en.wikipedia.org/wiki/Laika
-
-   Forked from #SAFEMOON
-
-   Two token features:
-   5% fee auto add to the liquidity pool to locked forever when selling
-   3% fee auto distribute to all holders (Lower overall penality for buying / selling should resolve cross exchange pricing issues SAFEMOON has)
-   50% burned at launch. With a strong burn and 5% LIQ fee, diamond hands will be rewarded.
-
-   - Liquidity pool tokens locked at launch (It's rug-proof)
-   - Contract ownership renounced at launch (It's owned buy the community)
-
-   Let's get this coin to 10,000x and get Laika2 back into to space!
+    Not for holding, so be aware
+    Developer or any team member will not be responsible for your loss if someone dumps their holding.
+    So please trade in defi at your own risk
  */
 
 pragma solidity ^0.6.12;
@@ -699,7 +688,7 @@ interface IUniswapV2Router02 is IUniswapV2Router01 {
 }
 
 
-contract LaikaCoin is Context, IERC20, Ownable {
+contract StarshipLandingNomoinal is Context, IERC20, Ownable {
     using SafeMath for uint256;
     using Address for address;
 
@@ -713,18 +702,18 @@ contract LaikaCoin is Context, IERC20, Ownable {
     address[] private _excluded;
 
     uint256 private constant MAX = ~uint256(0);
-    uint256 private _tTotal = 100000000000 * 10**6 * 10**9;
+    uint256 private _tTotal = 5000 * 10**6 * 10**9;
     uint256 private _rTotal = (MAX - (MAX % _tTotal));
     uint256 private _tFeeTotal;
 
-    string private _name = "Laika 2";
-    string private _symbol = "LAIKA2";
+    string private _name = "Starship Landing Nominal";
+    string private _symbol = "SNL";
     uint8 private _decimals = 9;
 
-    uint256 public _taxFee = 3;
+    uint256 public _taxFee = 2;
     uint256 private _previousTaxFee = _taxFee;
 
-    uint256 public _liquidityFee = 5;
+    uint256 public _liquidityFee = 8;
     uint256 private _previousLiquidityFee = _liquidityFee;
 
     IUniswapV2Router02 public immutable uniswapV2Router;
@@ -733,8 +722,12 @@ contract LaikaCoin is Context, IERC20, Ownable {
     bool inSwapAndLiquify;
     bool public swapAndLiquifyEnabled = true;
 
-    uint256 public _maxTxAmount = 500000000 * 10**6 * 10**9;
-    uint256 private numTokensSellToAddToLiquidity = 50000000 * 10**6 * 10**9;
+    uint256 public _maxTxAmount = 5000 * 10**6 * 10**9;
+
+    // Fixed this so ratio is between _tTotal and numTokensSellToAddToLiquidity
+    // is 1 / 2000 like in OG SAFEMOON.
+    // This way only 0.025% of total supply is sold at each swapAndLiquify event and not 5% lmao.
+    uint256 private numTokensSellToAddToLiquidity = 2500 * 10**3 * 10**9;
 
     event MinTokensBeforeSwapUpdated(uint256 minTokensBeforeSwap);
     event SwapAndLiquifyEnabledUpdated(bool enabled);
@@ -753,7 +746,7 @@ contract LaikaCoin is Context, IERC20, Ownable {
     constructor () public {
         _rOwned[_msgSender()] = _rTotal;
 
-        IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F);
+        IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x10ED43C718714eb63d5aA57B78B54704E256024E);
          // Create a uniswap pair for this new token
         uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory())
             .createPair(address(this), _uniswapV2Router.WETH());
@@ -875,7 +868,7 @@ contract LaikaCoin is Context, IERC20, Ownable {
             }
         }
     }
-        function _transferBothExcluded(address sender, address recipient, uint256 tAmount) private {
+    function _transferBothExcluded(address sender, address recipient, uint256 tAmount) private {
         (uint256 rAmount, uint256 rTransferAmount, uint256 rFee, uint256 tTransferAmount, uint256 tFee, uint256 tLiquidity) = _getValues(tAmount);
         _tOwned[sender] = _tOwned[sender].sub(tAmount);
         _rOwned[sender] = _rOwned[sender].sub(rAmount);
@@ -886,7 +879,7 @@ contract LaikaCoin is Context, IERC20, Ownable {
         emit Transfer(sender, recipient, tTransferAmount);
     }
 
-        function excludeFromFee(address account) public onlyOwner {
+    function excludeFromFee(address account) public onlyOwner {
         _isExcludedFromFee[account] = true;
     }
 
